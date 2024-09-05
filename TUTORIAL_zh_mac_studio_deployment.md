@@ -1,3 +1,8 @@
+## 调用演示
+以下是一个通过 `curl` 工具请求服务的演示视频：
+
+![demo_vl_api](assets/demo_vl_api.gif)
+
 ## 部署环境
 
 ```bash
