@@ -241,11 +241,67 @@ transformer-cli convert \
 ```
 
 
+## OpenAI API 服务部署
 
-## 自行实现的 OpenAI API 调用
+在 `api/` 文件夹中实完成了一个满足 OpenAI API 接口的简单实现，可以使用以下命令启动服务：
 
 ```bash
-curl -X GET http://localhost:8000/v1/models 
+# 推荐，使用 Apple Silicon M2 Ultra 的GPU加载模型和张量
+python api/main.py --checkpoint-path ~/.cache/modelscope/hub/qwen/Qwen-VL-Chat --apple-silicon-only
+
+# 或
+
+# 推荐，使用 CPU 加载模型和张量
+python api/main.py --checkpoint-path ~/.cache/modelscope/hub/qwen/Qwen-VL-Chat --cpu-only
+
+# 经过测试，在相同的图像任务请求下使用 GPU 的处理时间（~7s）比 CPU（~62s） 快9倍 
+```
+
+以下是一些支持的请求接口：
+
+```bash
+curl -X GET http://localhost:8000/v1/models
+
+curl -X POST http://localhost:8000/v1/chat/completions \
+-H "Content-Type: application/json" \
+-d '{
+  "model": "Qwen-VL-Chat-7B",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+            { "type": "text", "text":"你是谁？"}
+      	]
+    }
+  ],
+  "functions": [],
+  "stop": [],
+  "top_p": 0.9,
+  "temperature": 0.7,
+  "stream": false
+}'
+
+
+curl -X POST http://localhost:8000/v1/chat/completions \
+-H "Content-Type: application/json" \
+-d '{
+  "model": "Qwen-VL-Chat-7B",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+            { "type": "text", "text":"请描述一下这张图片"},
+            { "type": "image_url", "image_url": {"url": "https://img3.chinadaily.com.cn/images/202111/03/61822e54a3107be47f279dc3.png"}}
+      	]
+    }
+  ],
+  "functions": [],
+  "stop": [],
+  "top_p": 0.9,
+  "temperature": 0.7,
+  "stream": false
+}'
+
 
 
 curl -X POST http://localhost:8000/v1/chat/completions \
@@ -257,19 +313,19 @@ curl -X POST http://localhost:8000/v1/chat/completions \
       "role": "user",
       "content": [
             { "type": "text", "text":"这是哪里？"},
-            { "type": "image", "image":"https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}
+            { "type": "image_url", "image_url": {"url": "https://img3.chinadaily.com.cn/images/202111/03/61822e54a3107be47f279dc3.png"}}
       	]
     },
     {
       "role": "assistant",
       "content": [
-            { "type": "text", "text":"这是在海滩上，一个年轻女人和她的狗在沙滩上"}
+            { "type": "text", "text":"这张图片展示了一条城市街道，交通信号灯显示绿色，允许车辆通行。在画面的中心，有一辆绿色的有轨电车正在行驶。有轨电车的后面是一辆黑色的汽车，还有三辆汽车在有轨电车的两侧排队等待通过。此外，在图片的左侧还可以看到一栋大楼"}
       	]
     },
     {
       "role": "user",
       "content": [
-            { "type": "text", "text":"是什么品种的狗？"}
+            { "type": "text", "text":"此时我可以直行或者掉头吗？"}
       	]
     }
   ],
