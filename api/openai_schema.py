@@ -18,11 +18,15 @@ class ModelList(BaseModel):
     object: str = "list"
     data: List[ModelCard] = []
     
+    
+class ImageUrlContent(BaseModel):
+    url: Optional[str] = ""
+    
 
 class ImageMessageContent(BaseModel):
-    type: Literal["text", "image"]
+    type: Literal["text", "image_url"]
     text: Optional[str] = None
-    image: Optional[str] = None    
+    image_url: Optional[ImageUrlContent] = None
 
 
 class ChatMessage(BaseModel):

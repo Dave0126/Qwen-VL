@@ -75,7 +75,7 @@ def trim_stop_words(response, stop_words):
 
 def _sort_list(_data: List[ImageMessageContent]):
     """按类型排序列表, 用以修复: https://github.com/QwenLM/Qwen-VL/issues/164"""
-    return sorted(_data, key=lambda item: item.type not in ['image', 'box'])
+    return sorted(_data, key=lambda item: item.type not in ['image_url', 'box'])
 
 
 """
@@ -89,10 +89,10 @@ def _create_query(_query: ChatMessage, **kwargs):
         for index, content in enumerate(_sort_list(_query.content)):
             if content.type == "text":
                 _query_list.append({"text": content.text})
-            elif content.type == "image":
+            elif content.type == "image_url":
                 # @TODO processing images
                 # print(f"Save Image, path: {_img_path}")
-                _query_list.append({"image": _img_path})
+                _query_list.append({"image_url": content.image_url})
     return _query_list
 
 
@@ -156,8 +156,8 @@ def parse_messages(messages:List[ChatMessage], functions):
                 for _idx, _c in enumerate(_sort_list(content)):
                     if _c.type == "text":
                         _content += _c.text.lstrip("\n").rstrip()
-                    elif _c.type == "image":
-                        _content += ("<img>" + _c.image + "</img>").lstrip("\n").rstrip()
+                    elif _c.type == "image_url":
+                        _content += ("<img>" + _c.image_url.url + "</img>").lstrip("\n").rstrip()
                 content = _content
             print(f"content: {content}")
             
