@@ -159,9 +159,11 @@ if __name__ == "__main__":
     args = get_args()
     if args.cpu_only:
         device_map = "cpu"
+    elif args.apple_silicon_only:
+        device_map = "mps" if torch.backends.mps.is_available() else "cpu"
     else:
         device_map = "auto"
-        
+    print(f"torch.device = {device_map}")
     MODEL, TOKENIZER = load_model(args.checkpoint_path, trust_remote_code=True, device_map=device_map)
     model_list = ModelList()    
     model_list.data.append(ModelCard(id="Qwen-VL-Chat-7B"))

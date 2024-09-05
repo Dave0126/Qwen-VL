@@ -22,6 +22,9 @@ def get_args():
         "--cpu-only", action="store_true", help="Run demo with CPU only"
     )
     parser.add_argument(
+        "--apple-silicon-only", action="store_true", help="Run demo with Apple Silicon GPU by mps"
+    )
+    parser.add_argument(
         "--server-port", type=int, default=8000, help="Demo server port."
     )
     parser.add_argument(
