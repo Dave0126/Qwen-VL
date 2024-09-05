@@ -38,6 +38,7 @@
 ---
 ## Deployment on Apple Silicon devices, etc. Mac Studio (M2 Ultra)
 <a href="TUTORIAL_zh_mac_studio_deployment.md">Check here out (in chinese/ZH)</a>
+
 ---
 ## Qwen-VL-Plus & Qwen-VL-Max
 
