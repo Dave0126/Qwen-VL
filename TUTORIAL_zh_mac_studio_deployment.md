@@ -251,7 +251,7 @@ python api/main.py --checkpoint-path ~/.cache/modelscope/hub/qwen/Qwen-VL-Chat -
 
 # 或
 
-# 推荐，使用 CPU 加载模型和张量
+# 使用 CPU 加载模型和张量
 python api/main.py --checkpoint-path ~/.cache/modelscope/hub/qwen/Qwen-VL-Chat --cpu-only
 
 # 经过测试，在相同的图像任务请求下使用 GPU 的处理时间（~7s）比 CPU（~62s） 快9倍 

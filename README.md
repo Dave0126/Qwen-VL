@@ -36,6 +36,9 @@
 <br><br>
 
 ---
+## Deployment on Apple Silicon devices, etc. Mac Studio (M2 Ultra)
+<a href="TUTORIAL_zh_mac_studio_deployment.md">Check here out (in chinese/ZH)</a>
+---
 ## Qwen-VL-Plus & Qwen-VL-Max
 
 Qwen-Vl-Plus and Qwen-VL-Max are the upgraded and latest versions of the Qwen-VL model family, currently supporting access for free through <a href="https://huggingface.co/spaces/Qwen/Qwen-VL-Max">🤗</a>, <a href="https://modelscope.cn/studios/qwen/Qwen-VL-Max/summary">🤖</a>, [Web pages](https://qianwen.aliyun.com), [APP](http://ofasys-wlcb.oss-accelerate-overseas.aliyuncs.com/QwenVL/blog/app_qrcode.jpg) and [APIs](https://help.aliyun.com/zh/dashscope/developer-reference/vl-plus-quick-start/).
